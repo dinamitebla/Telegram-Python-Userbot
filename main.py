@@ -11,18 +11,18 @@ prefix = '*'
 def calc(app, message):
     app.edit_message_text(message.chat.id, message.message_id, f"{message.text[5:]} = {eval(message.text[5:])}")
 
-# chatid
+# Chatid
 @app.on_message(filters.me & filters.command(commands='chatid', prefixes=prefix))
 def chatid(app, message):
     app.edit_message_text(message.chat.id, message.message_id, message.chat.id)
 
-# msginfo
+# Msginfo
 @app.on_message(filters.me & filters.command(commands='msginfo', prefixes=prefix))
 def msginfo(app, message):
     if message.reply_to_message:
         app.edit_message_text(message.chat.id, message.message_id, f"**Chat**: {message.chat.title} [--{message.chat.id}--]\n\n**Message ID**: --{message.reply_to_message.message_id}--\n**User ID**: -- {message.reply_to_message.from_user.id}-- [DC {message.reply_to_message.from_user.dc_id}]")
 
-# Comando flood
+# Flood
 @app.on_message(filters.me & filters.command(commands="flood", prefixes=prefix))
 def flood(app, message):
     app.delete_messages(message.chat.id, message.message_id)
@@ -30,7 +30,7 @@ def flood(app, message):
         time.sleep(0.1)
         app.send_message(message.chat.id, " ".join(message.text.split()[2:]))
 
-#comando dc
+# Dc
 @app.on_message(filters.command(commands='dc', prefixes=prefix) & filters.me)
 def dc(app, message):
     try:
